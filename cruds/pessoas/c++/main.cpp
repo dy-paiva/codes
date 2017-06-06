@@ -2,72 +2,82 @@
 //  Crud de pessoas
 // ----------------------------------------------------------------
 
-#include <cstdlib>
+#include <vector>
+#include <regex>
+#include <fstream>
 #include <iostream>
+
+#include <cstdio>
 
 using namespace std;
 
 int main(int argc, char **argv) {
-  string file_name;
-  file_name = "../records.txt";
-
-  string items[] = {"1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"};
-  string pessoas[] = {};
-
-  // fileObj = File.open(file_name, 'a+')
-  // fileObj.each_line do |line|
-  //   next if line =~ /^(\/\/)/
-  //   pessoas.push nome: line
-  // end
+  vector<string> items = {"1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"};
 
   int code;
-  while (code != 0) {
+  while (true) {
     system("clear");
 
-    cout << " Escolha uma das opções para poder jogar: \n\n";
-    for (int i = 0; i < sizeof(items)/sizeof(items[0]); ++i) {
-      cout << ' ' << items[i] << endl;
+    cout << " Escolha uma das opções: \n\n";
+    for(vector<string>::const_iterator i = items.begin(); i != items.end(); ++i) {
+      cout << ' ' << *i << endl;
     }
-    cout << endl;
+    cout << endl << " Opção: ";
 
-    cout << " Opção: " << code;
     cin >> code;
+    system("clear");
 
     switch (code) {
-      case 0:
-        cout << "\n Obrigado \n\n";
+      case 0: {
+        cout << "\n Obrigado! \n\n";
         return 0;
-      case 1:
+      }
+      case 1: {
         cout << "\n Lista de Pessoas \n\n";
 
-        //     if pessoas.empty?
-        //       puts "   Nenhuma pessoa encontrada \n\n"
-        //     else
-        //       pessoas.each_with_index do |pessoa, idx|
-        //         puts " ----- Pessoa #{idx + 1}\n"
-        //         puts "  Nome: #{pessoa[:nome]}"
-        //         puts "\n"
-        //       end
-        //     end
+        string line;
+        ifstream read_file("../records.txt");
+        vector<string> pessoas = {};
 
-        cout << " Digite enter para continuar"
-        cin;
-      case 2:
-        cout << "\n Cadastro de Pessoa (0 para cancelar) \n\n";
-        //     nome = ''
-        //     while nome.empty?
-        //       system("clear");
-        //       puts "\n Cadastro de Pessoa (0 para cancelar) \n\n"
+        while ( getline(read_file, line)) {
+          if (regex_search(line, regex { R"(//( *)(\w+*))" }) ) continue;
+          pessoas.push_back(line);
+        }
 
-        //       print " Nome: "
-        //       nome = gets.strip
-        //     end
+        read_file.close();
 
-        //     unless nome == '0'
-        //       fileObj.puts nome
-        //       pessoas.push(nome: nome)
-        //       puts "\n Cadastrado com Sucesso!\n"
-        //     end
+        if (pessoas.empty()) {
+          cout << "   Nenhuma pessoa encontrada \n\n";
+        } else {
+          for(vector<string>::const_iterator i = pessoas.begin(); i != pessoas.end(); ++i){
+            cout << " ----- Pessoa " << (i - pessoas.begin()) + 1 << "\n";
+            cout << "  Nome: " << *i << "\n\n";
+          }
+        }
+
+        cout << " Digite enter para continuar";
+        cin.get();
+        cin.get();
+        break;
+      }
+      case 2: {
+        string nome = "";
+        while (nome.empty()) {
+          system("clear");
+          cout << "\n Cadastro de Pessoa (0 para cancelar) \n\n";
+          cout << " Nome: ";
+          getline(cin, nome);
+        }
+
+        if (nome != "0") {
+          ofstream write_file("../records.txt", ios::app);
+          write_file << nome << endl;
+          write_file.close();
+
+          cout << "\n Cadastrado com Sucesso!\n";
+        }
+        break;
+      }
     }
   }
 }

@@ -2,16 +2,7 @@
 #  Crud de pessoas
 # ----------------------------------------------------------------
 
-file_name = '../records.txt'
-
-items   = ["1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"]
-pessoas = []
-
-fileObj = File.open(file_name, 'a+')
-fileObj.each_line do |line|
-  next if line =~ /^(\/\/)/
-  pessoas.push nome: line
-end
+items = ["1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"]
 
 code = nil
 while (code != '0')
@@ -29,13 +20,22 @@ while (code != '0')
   when '0'
     puts "\n Obrigado! \n\n"
   when '1'
+    pessoas = []
+
+    file_read = File.open('../records.txt', 'a+')
+    file_read.each_line do |line|
+      next if line =~ /^(\/\/)/
+      pessoas.push line
+    end
+    file_read.close
+
     puts "\n Lista de Pessoas \n\n"
     if pessoas.empty?
       puts "   Nenhuma pessoa encontrada \n\n"
     else
       pessoas.each_with_index do |pessoa, idx|
         puts " ----- Pessoa #{idx + 1}\n"
-        puts "  Nome: #{pessoa[:nome]}"
+        puts "  Nome: #{pessoa}"
         puts "\n"
       end
     end
@@ -53,8 +53,10 @@ while (code != '0')
     end
 
     unless nome == '0'
-      fileObj.puts nome
-      pessoas.push(nome: nome)
+      file_write = File.open('../records.txt', 'a+')
+      file_write.puts nome
+      file_write.close
+
       puts "\n Cadastrado com Sucesso!\n"
     end
   end
