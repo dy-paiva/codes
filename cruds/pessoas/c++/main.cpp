@@ -7,12 +7,10 @@
 #include <fstream>
 #include <iostream>
 
-#include <cstdio>
-
 using namespace std;
 
 int main(int argc, char **argv) {
-  vector<string> items = {"1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"};
+  vector<string> items = { "1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair" };
 
   int code;
   while (true) {
@@ -73,8 +71,6 @@ int main(int argc, char **argv) {
           ofstream write_file("../records.txt", ios::app);
           write_file << nome << endl;
           write_file.close();
-
-          cout << "\n Cadastrado com Sucesso!\n";
         }
         break;
       }

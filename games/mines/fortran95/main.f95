@@ -11,7 +11,7 @@ program Main
 
     Print *, "Escolha uma das opções para poder jogar:"
     Print *,
-    do i = 1,Size(itemsMenu)
+    do i = 1, Size(itemsMenu)
       Print *, itemsMenu(i)
     end do
     Print *,
