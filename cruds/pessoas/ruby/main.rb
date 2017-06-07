@@ -43,21 +43,19 @@ while (code != '0')
     print " Digite enter para continuar"
     gets.strip
   when '2'
-    nome = ''
-    while nome.empty?
-      system("clear");
-      puts "\n Cadastro de Pessoa (0 para cancelar) \n\n"
+      nome = ''
+      while nome.empty?
+        system("clear");
+        puts "\n Cadastro de Pessoa (0 para cancelar) \n\n"
 
-      print " Nome: "
-      nome = gets.strip
-    end
+        print " Nome: "
+        nome = gets.strip
+      end
 
-    unless nome == '0'
-      file_write = File.open('../records.txt', 'a+')
-      file_write.puts nome
-      file_write.close
-
-      puts "\n Cadastrado com Sucesso!\n"
-    end
+      unless nome == '0'
+        file_write = File.open('../records.txt', 'a+')
+        file_write.puts nome
+        file_write.close
+      end
   end
 end
