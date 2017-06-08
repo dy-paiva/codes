@@ -2,7 +2,15 @@
 #  Crud de pessoas
 # ----------------------------------------------------------------
 
-items = ["1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"]
+items = []
+
+file_read = File.open('../../_records/menu_pessoas.txt', 'a+')
+file_read.each_line do |line|
+  next if line =~ /^(\/\/)/
+  code, item = line.split(';')
+  items.push "#{code.strip} - #{item.strip}"
+end
+file_read.close
 
 code = nil
 while (code != '0')
@@ -22,7 +30,7 @@ while (code != '0')
   when '1'
     pessoas = []
 
-    file_read = File.open('../records.txt', 'a+')
+    file_read = File.open('../../_records/pessoas.txt', 'a+')
     file_read.each_line do |line|
       next if line =~ /^(\/\/)/
       pessoas.push line
@@ -53,7 +61,7 @@ while (code != '0')
       end
 
       unless nome == '0'
-        file_write = File.open('../records.txt', 'a+')
+        file_write = File.open('../../_records/pessoas.txt', 'a+')
         file_write.puts nome
         file_write.close
       end

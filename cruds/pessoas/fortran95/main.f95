@@ -29,7 +29,7 @@ program Pessoas
     case (1)
       write(*, "(/, X, A, /)") "Lista de Pessoas";
 
-      open(15, file="../records.txt", action='read')
+      open(15, file="../../_records/pessoas.txt", action='read')
 
       i = 1
       reason = 0
@@ -59,7 +59,7 @@ program Pessoas
       end do
 
       if (nome /= '0') then
-        open(15, file="../records.txt", position="append", action="write")
+        open(15, file="../../_records/pessoas.txt", position="append", action="write")
         write(15, '(A)') trim(nome)
         close(15)
       end if

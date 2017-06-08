@@ -9,7 +9,16 @@
 import os
 import re
 
-items = ["1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"]
+items = []
+read_file = open("../../_records/menu_pessoas.txt", 'r')
+
+str_read = read_file.read()
+for line in str_read.splitlines(str_read.count('\n')):
+  if re.search('//', line): continue
+  code, item = line.split(';')
+  items.append(code.replace(' ', '') + ' - ' + item.replace(' ', '').replace("\n", ''))
+
+read_file.close()
 
 code = ''
 while (code != '0'):
@@ -26,7 +35,7 @@ while (code != '0'):
   elif code == '1':
     print "\n Lista de Pessoas \n"
 
-    read_file = open("../records.txt", 'r')
+    read_file = open("../../_records/pessoas.txt", 'r')
     pessoas = []
 
     str_read = read_file.read()
@@ -52,6 +61,6 @@ while (code != '0'):
       nome = raw_input(" Nome: ")
 
     if nome != '0':
-      file_write = open("../records.txt", 'a')
+      file_write = open("../../_records/pessoas.txt", 'a')
       file_write.write("%s\n" % nome)
       file_write.close()

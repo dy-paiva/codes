@@ -10,7 +10,19 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-  vector<string> items = { "1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair" };
+  string line;
+  ifstream read_file("../../_records/menu_pessoas.txt");
+  vector<string> items;
+
+  while ( getline(read_file, line)) {
+    if ( regex_search(line, regex { R"(//( *)(\w+*))" }) ) {
+      continue;
+    }
+    line = regex_replace(line, regex { R"(;( *))" }, " - ");
+    items.push_back( line );
+  }
+
+  read_file.close();
 
   int code;
   while (true) {
@@ -34,7 +46,7 @@ int main(int argc, char **argv) {
         cout << "\n Lista de Pessoas \n\n";
 
         string line;
-        ifstream read_file("../records.txt");
+        ifstream read_file("../../_records/pessoas.txt");
         vector<string> pessoas = {};
 
         while ( getline(read_file, line)) {
@@ -68,7 +80,7 @@ int main(int argc, char **argv) {
         }
 
         if (nome != "0") {
-          ofstream write_file("../records.txt", ios::app);
+          ofstream write_file("../../_records/pessoas.txt", ios::app);
           write_file << nome << endl;
           write_file.close();
         }
