@@ -5,7 +5,6 @@
 program Pessoas
   character(30) :: items(3) = [character(30):: "1 - Lista de Pessoas", "2 - Cadastrar Pessoa", "0 - Sair"]
   character(100) :: line, nome
-  character(100), dimension (:,:), allocatable :: lista_pessoas
   integer code
   integer i, reason
 
