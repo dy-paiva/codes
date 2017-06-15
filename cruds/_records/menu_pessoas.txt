@@ -1,5 +1,5 @@
-// Menu de Pessoas
-// codigo; item
-1; Lista de Pessoas
-2; Cadastrar Pessoas
-3; Sair
+// menu_pessoas
+// code; name
+code: 1; name: Lista de Pessoas
+code: 2; name: Cadastrar Pessoas
+code: 3; name: Sair

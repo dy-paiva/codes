@@ -2,40 +2,28 @@
 #  Crud de pessoas
 # ----------------------------------------------------------------
 
-items = []
+load 'pessoa.rb'
+load 'menu_pessoa.rb'
 
-file_read = File.open('../../_records/menu_pessoas.txt', 'a+')
-file_read.each_line do |line|
-  next if line =~ /^(\/\/)/
-  code, item = line.split(';')
-  items.push "#{code.strip} - #{item.strip}"
-end
-file_read.close
+items = MenuPessoa.all
 
-code = nil
-while (code != '0')
-  system("clear");
+while true
+  system("clear")
 
   puts " Escolha uma das opções: \n\n"
-  items.each{ |item| puts " #{item}" }
+  items.each{ |item| puts " #{item['code']} - #{item['name']}" }
   puts "\n"
 
   print " Opção: "
   code = gets.strip
-  system("clear");
+  system("clear")
 
   case code
   when '0'
     puts "\n Obrigado! \n\n"
+    exit
   when '1'
-    pessoas = []
-
-    file_read = File.open('../../_records/pessoas.txt', 'a+')
-    file_read.each_line do |line|
-      next if line =~ /^(\/\/)/
-      pessoas.push line
-    end
-    file_read.close
+    pessoas = Pessoa.all
 
     puts "\n Lista de Pessoas \n\n"
     if pessoas.empty?
@@ -43,7 +31,7 @@ while (code != '0')
     else
       pessoas.each_with_index do |pessoa, idx|
         puts " ----- Pessoa #{idx + 1}\n"
-        puts "  Nome: #{pessoa}"
+        puts "  Nome: #{pessoa['name']}"
         puts "\n"
       end
     end
@@ -51,19 +39,15 @@ while (code != '0')
     print " Digite enter para continuar"
     gets.strip
   when '2'
-      nome = ''
-      while nome.empty?
-        system("clear");
-        puts "\n Cadastro de Pessoa (0 para cancelar) \n\n"
+    nome = ''
+    while nome.empty?
+      system("clear")
+      puts "\n Cadastro de Pessoa (0 para cancelar) \n\n"
 
-        print " Nome: "
-        nome = gets.strip
-      end
+      print " Nome: "
+      nome = gets.strip
+    end
 
-      unless nome == '0'
-        file_write = File.open('../../_records/pessoas.txt', 'a+')
-        file_write.puts nome
-        file_write.close
-      end
+    Pessoa.create(name: nome) unless nome == '0'
   end
 end

@@ -1,7 +1,10 @@
-// nome
-Diego Felipe
-Felipe Silva
-Diego Feh .c++
-Diego Feh .f95
-Diego Feh .rb
-Diego Feh .py
+// pessoas
+// name
+name: Diego Felipe
+name: Felipe Silva
+name: Diego Feh .c++
+name: Diego Feh .f95
+name: Diego Feh .rb
+name: Diego Feh .py
+name: Diego Feh New
+name: Teste Create
