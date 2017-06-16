@@ -2,6 +2,8 @@
 //  Crud de pessoas
 // ----------------------------------------------------------------
 
+#include "record.cpp"
+
 #include <vector>
 #include <regex>
 #include <fstream>
@@ -10,19 +12,8 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-  string line;
-  ifstream read_file("../../_records/menu_pessoas.txt");
-  vector<string> items;
-
-  while ( getline(read_file, line)) {
-    if ( regex_search(line, regex { R"(//( *)(\w+*))" }) ) {
-      continue;
-    }
-    line = regex_replace(line, regex { R"(;( *))" }, " - ");
-    items.push_back( line );
-  }
-
-  read_file.close();
+  Record record;
+  vector<string> items = record.all();
 
   int code;
   while (true) {
