@@ -2,18 +2,20 @@
 //  Crud de pessoas
 // ----------------------------------------------------------------
 
-#include "record.cpp"
+#include "pessoa.h"
+#include "menu_pessoa.h"
 
 #include <vector>
-#include <regex>
-#include <fstream>
 #include <iostream>
+#include <typeinfo>
 
 using namespace std;
 
 int main(int argc, char **argv) {
-  Record record;
-  vector<string> items = record.all();
+  Pessoa pessoa;
+  MenuPessoa menu_pessoa;
+
+  vector<string> items = menu_pessoa.all();
 
   int code;
   while (true) {
@@ -36,16 +38,7 @@ int main(int argc, char **argv) {
       case 1: {
         cout << "\n Lista de Pessoas \n\n";
 
-        string line;
-        ifstream read_file("../../_records/pessoas.txt");
-        vector<string> pessoas = {};
-
-        while ( getline(read_file, line)) {
-          if (regex_search(line, regex { R"(//( *)(\w+*))" }) ) continue;
-          pessoas.push_back(line);
-        }
-
-        read_file.close();
+        vector<string> pessoas = pessoa.all();
 
         if (pessoas.empty()) {
           cout << "   Nenhuma pessoa encontrada \n\n";
@@ -71,9 +64,7 @@ int main(int argc, char **argv) {
         }
 
         if (nome != "0") {
-          ofstream write_file("../../_records/pessoas.txt", ios::app);
-          write_file << nome << endl;
-          write_file.close();
+          pessoa.create(nome);
         }
         break;
       }
