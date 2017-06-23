@@ -10,6 +10,27 @@
 using namespace std;
 
 // functions
+int  get_code_options();
+void list_people();
+void create_person();
+
+// main function
+int main(int argc, char **argv) {
+  int code = get_code_options();
+
+  switch (code) {
+    case 0: {
+      cout << "\n Obrigado! \n\n";
+      return 0;
+    }
+    case 1: { list_people(); break; }
+    case 2: { create_person(); break; }
+  }
+
+  main(argc, argv);
+}
+
+// functions
 int get_code_options() {
   int code;
   MenuPessoa menu_pessoa;
@@ -64,23 +85,5 @@ void create_person() {
 
   if (nome != "0") {
     pessoa.create(nome);
-  }
-}
-
-// main function
-int main(int argc, char **argv) {
-  int code;
-
-  while (true) {
-    code = get_code_options();
-
-    switch (code) {
-      case 0: {
-        cout << "\n Obrigado! \n\n";
-        return 0;
-      }
-      case 1: { list_people(); break; }
-      case 2: { create_person(); break; }
-    }
   }
 }

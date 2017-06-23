@@ -5,7 +5,7 @@
 load 'pessoa.rb'
 load 'menu_pessoa.rb'
 
-while true
+def main
   code = get_code_options
 
   case code
@@ -15,7 +15,10 @@ while true
   when '1' then list_people
   when '2' then create_person
   end
+
+  main
 end
+
 
 def get_code_options
   system("clear")
@@ -68,3 +71,5 @@ def create_person
 
   list_people
 end
+
+main
