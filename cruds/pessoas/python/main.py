@@ -9,17 +9,13 @@
 import os
 import re
 
-items = []
+from pessoa import Pessoa
+from menu_pessoa import MenuPessoa
 
-read_file = open("../../_records/menu_pessoas.txt", 'r')
+pessoa      = Pessoa()
+menu_pessoa = MenuPessoa()
 
-str_read = read_file.read()
-for line in str_read.splitlines(str_read.count('\n')):
-  if re.search('//', line): continue
-  code, item = line.split(';')
-  items.append(code.replace(' ', '') + ' - ' + item.replace(' ', '').replace("\n", ''))
-
-read_file.close()
+items = menu_pessoa.all()
 
 def main():
   code = get_code_options()
@@ -46,22 +42,14 @@ def get_code_options():
 def list_people():
   print "\n Lista de Pessoas \n"
 
-  read_file = open("../../_records/pessoas.txt", 'r')
-  pessoas = []
-
-  str_read = read_file.read()
-  for line in str_read.splitlines(str_read.count('\n')):
-    if re.search('//', line): continue
-    pessoas.append(line)
-
-  read_file.close()
+  pessoas = pessoa.all()
 
   if not pessoas:
     print "   Nenhuma pessoa encontrada \n"
   else:
-    for (idx, pessoa) in enumerate(pessoas):
+    for (idx, person) in enumerate(pessoas):
       print " ----- Pessoa", idx + 1
-      print "  Nome:", pessoa
+      print "  Nome:", person, "\n"
 
   raw_input(" Digite enter para continuar")
 
@@ -73,8 +61,6 @@ def create_person():
     nome = raw_input(" Nome: ")
 
   if nome != '0':
-    file_write = open("../../_records/pessoas.txt", 'a')
-    file_write.write("%s\n" % nome)
-    file_write.close()
+    pessoa.create(nome)
 
 main()
