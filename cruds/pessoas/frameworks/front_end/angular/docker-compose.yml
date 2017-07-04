@@ -2,6 +2,6 @@ web:
   build: .
   command: npm start
   volumes:
-    - .:/pessoaApp
+    - .:/pessoa-app
   ports:
     - "4200:4200"

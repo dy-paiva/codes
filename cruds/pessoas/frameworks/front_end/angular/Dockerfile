@@ -17,3 +17,5 @@ WORKDIR $erp
 ADD . $erp
 
 RUN npm install
+
+EXPOSE 4200

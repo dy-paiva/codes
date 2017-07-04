@@ -1,12 +1,12 @@
-import { Routes, RouterModule } from '@angular/core';
+import { ModuleWithProviders }  from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent } from './app/app.component';
 import { PeopleComponent } from './people/person.component';
 
 // Route Configuration
 export const routes: Routes = [
-  { path: '/', component: AppComponent },
-  { path: 'people', component: PeopleComponent, data: { title: 'People' } },
+  { path: 'people', component: PeopleComponent },
 ];
 
+// Route Configuration
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
