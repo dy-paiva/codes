@@ -5,5 +5,15 @@ import { Component } from '@angular/core';
   templateUrl: './person.component.html'
 })
 export class PeopleComponent {
-  title = 'People works!';
+  personCtrl = {
+    list: [
+      { nome: 'Diego Felipe' }
+    ],
+    add: function(newVal){
+      if (newVal.value == '') { return }
+
+      this.list.push({nome: newVal.value});
+      newVal.value = '';
+    }
+  };
 }

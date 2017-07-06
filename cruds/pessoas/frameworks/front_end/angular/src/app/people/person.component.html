@@ -1,3 +1,21 @@
-<h1>
-  {{title}}
-</h1>
+<div>
+  <h1>
+    Cadastrar nova Pessoa
+  </h1>
+
+  <input #personName >
+  <button style="margin-left: 1em" (click)="personCtrl.add(personName)">Adicionar</button>
+</div>
+
+<hr style="margin-top: 2em">
+
+<div>
+  <h1>
+    Lista de Pessoas
+  </h1>
+
+  <div *ngFor="let person of personCtrl.list">
+    Nome: {{person.nome}}
+  </div>
+</div>
+
