@@ -18,4 +18,4 @@ import { PublicModule } from './_public/public.module'
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
+import { HttpModule } from '@angular/http';
+
 import { NgModule } from '@angular/core';
 
 import { PeopleRoutes }    from './person.routes';
@@ -9,11 +11,12 @@ import { PeopleComponent } from './person.component';
   imports: [
     CommonModule,
     FormsModule,
+    HttpModule,
 
-    PeopleRoutes
+    PeopleRoutes,
   ],
   providers: [],
-  declarations: [ PeopleComponent ],
+  declarations: [ PeopleComponent,  ],
   bootstrap: []
 })
 export class PeopleModule { }
