@@ -9,6 +9,11 @@ WORKDIR $erp
 
 ADD Gemfile* $erp/
 
+# --- Add this to your Dockerfile ---
+ENV BUNDLE_GEMFILE=$erp/Gemfile \
+  BUNDLE_JOBS=2 \
+  BUNDLE_PATH=/bundle
+
 RUN bundle install
 
 RUN locale-gen en_US.UTF-8

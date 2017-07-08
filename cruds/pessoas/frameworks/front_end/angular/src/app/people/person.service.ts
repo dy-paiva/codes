@@ -1,21 +1,23 @@
-import { Injectable }    from '@angular/core';
-import { Http } from '@angular/http';
+import { Http }       from '@angular/http';
+import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+
+import { Person } from './shared/person'
 
 @Injectable()
 export class PersonService {
-  private peopleUrl = 'http://localhost:8000/people.json';  // URL to web api
+  private peopleUrl = 'http://localhost:8000/people';  // URL to web api
 
   constructor(private http: Http) {}
 
-  getPeople() {
-    this.http.get(this.peopleUrl).toPromise()
-      .then( response => {
-        const resp = response.json().data;
-        console.log(resp);
-      })
-      .catch(e => this.handleError(e));
+  getPeople(): Observable<Person[]> {
+    var resquest = this.http.get(this.peopleUrl)
+    return resquest.map( response => response.json().items )
   }
 
   private handleError(error: any): Promise<any> {

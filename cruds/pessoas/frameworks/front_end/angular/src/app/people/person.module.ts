@@ -16,7 +16,7 @@ import { PeopleComponent } from './person.component';
     PeopleRoutes,
   ],
   providers: [],
-  declarations: [ PeopleComponent,  ],
+  declarations: [ PeopleComponent ],
   bootstrap: []
 })
 export class PeopleModule { }

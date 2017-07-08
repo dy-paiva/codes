@@ -1,21 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { PersonService } from './person.service'
+
+import { Person } from './shared/person'
 
 @Component({
   selector: 'app-people',
   templateUrl: './person.component.html',
   providers: [ PersonService ],
 })
-export class PeopleComponent {
+export class PeopleComponent implements OnInit {
   constructor(private personService: PersonService) { }
 
-  personCtrl = {
-    list: this.personService.getPeople(),
-    add: function(newVal){
-      if (newVal.value == '') { return }
+  ngOnInit() {
+    this.personCtrl.loading = true
 
-      this.list.push({nome: newVal.value});
+    this.personService.getPeople().subscribe( list => {
+      this.personCtrl.list    = list
+      this.personCtrl.loading = false
+    })
+  }
+
+  personCtrl = {
+    list: [],
+    loading: false,
+    addPerson: function(newVal){
+      if (newVal.value == '') return
+
+      var person = new Person()
+      person.name = newVal.value
+      if (!person.valid()) { alert(person.errors); return }
+
+      this.list.push(person);
       newVal.value = '';
     }
   };
