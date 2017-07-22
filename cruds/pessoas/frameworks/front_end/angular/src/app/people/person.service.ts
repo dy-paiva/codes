@@ -20,8 +20,8 @@ export class PersonService {
     return resquest.map( response => response.json().items )
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+  createPeople(params): Observable<Person> {
+    var resquest = this.http.post(this.peopleUrl, { people: params })
+    return resquest.map( response => response.json().person )
   }
 }

@@ -23,6 +23,7 @@ export class PeopleComponent implements OnInit {
 
   personCtrl = {
     list: [],
+    _this: this,
     loading: false,
     addPerson: function(newVal){
       if (newVal.value == '') return
@@ -31,8 +32,13 @@ export class PeopleComponent implements OnInit {
       person.name = newVal.value
       if (!person.valid()) { alert(person.errors); return }
 
-      this.list.push(person);
-      newVal.value = '';
+      this.loading = true
+
+      this._this.personService.createPeople(person).subscribe( data => {
+        this.list.push(data);
+        this.loading = false
+        newVal.value = '';
+      })
     }
   };
 }
